@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LineLeap Calculator</title>
+    <style>
+      body {
+        background: black;
+        color: white;
+        font-family: sans-serif;
+        padding: 2rem;
+        text-align: center;
+      }
+      .card {
+        background: #1a1a1d;
+        border-radius: 1rem;
+        padding: 2rem;
+        max-width: 600px;
+        margin: 2rem auto;
+      }
+      input, input[type=range] {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.25rem;
+        border-radius: 0.5rem;
+        background: #2e2e33;
+        color: white;
+        border: none;
+      }
+      label {
+        text-align: left;
+        display: block;
+        margin-top: 1rem;
+      }
+      .highlight {
+        color: #0682fe;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="highlight">LineLeap Additional Revenue Calculator</h1>
+    <div class="card">
+      <label>Total # of People</label>
+      <input id="people" type="number" placeholder="Enter number" />
+
+      <label>% of People buying Skips</label>
+      <input id="percentage" type="range" min="0" max="100" value="0" />
+      <div id="percentValue" class="highlight">0%</div>
+
+      <label>LineSkip Price ($)</label>
+      <input id="price" type="number" placeholder="Enter price" />
+
+      <h2 style="margin-top: 2rem;">Estimated Total Revenue</h2>
+      <div id="total" class="highlight" style="font-size: 2rem;">$0.00</div>
+    </div>
+
+    <script>
+      const peopleInput = document.getElementById('people');
+      const percentInput = document.getElementById('percentage');
+      const priceInput = document.getElementById('price');
+      const percentValueDisplay = document.getElementById('percentValue');
+      const totalDisplay = document.getElementById('total');
+
+      function updateCalc() {
+        const people = parseFloat(peopleInput.value) || 0;
+        const percentage = parseFloat(percentInput.value) || 0;
+        const price = parseFloat(priceInput.value) || 0;
+
+        percentValueDisplay.textContent = percentage + '%';
+
+        const total = (people * (percentage / 100) * price * 0.7).toFixed(2);
+        totalDisplay.textContent = '$' + total;
+      }
+
+      [peopleInput, percentInput, priceInput].forEach(input => {
+        input.addEventListener('input', updateCalc);
+      });
+    </script>
+  </body>
+</html>
